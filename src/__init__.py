@@ -15,6 +15,6 @@ __all__ = [
     # For example:
     'download_live',  # assuming this exists in python_downloader.py
     'extract_screenshots',  # assuming this exists in extract_screenshots.py
-    'extract_timestamp',  # assuming this exists in extract_timestamp.py
+    'process_images',  # assuming this exists in extract_timestamp.py
     'cut_video_by_timestamps',   # assuming this exists in edit_together.py
 ]

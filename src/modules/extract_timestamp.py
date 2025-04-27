@@ -10,6 +10,13 @@ import logging
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+def screenshot_to_start(jpg_file):
+    hour = int(jpg_file[16])
+    minute = int(jpg_file[18:19])
+    seconds = int(jpg_file[21:22])
+    return 3600*hour+minute*60+seconds
+
+
 def crop_bottom_right(image, width_percent=25, height_percent=10):
     """Crop the bottom right corner of an image"""
     width, height = image.size
@@ -50,7 +57,7 @@ def extract_timestamp(image):
     
     return "00:00:00"
 
-def process_images(directory, output_csv):
+def process_images(directory, duration, output_csv):
     """Process all jpg images in a directory and save timestamps to CSV"""
     # Check if directory exists
     if not os.path.isdir(directory):
@@ -60,7 +67,7 @@ def process_images(directory, output_csv):
     # Create CSV file
     with open(output_csv, 'w', newline='') as csvfile:
         csv_writer = csv.writer(csvfile)
-        csv_writer.writerow(['Image', 'Timestamp', 'Path'])
+        csv_writer.writerow(['Image', 'Timestamp', 'Path', 'Start_time', 'End_time'])
         
         # Get all jpg files
         jpg_files = [f for f in os.listdir(directory) if f.lower().endswith(('.jpg', '.jpeg'))]
@@ -86,10 +93,12 @@ def process_images(directory, output_csv):
                 
                 # Extract timestamp
                 timestamp = extract_timestamp(cropped)
-                
+                hours, mins, secs = map(int, timestamp.split(':'))
+                start_time = screenshot_to_start(filename)
+                end_time = start_time + 3600*hours+60*mins+secs
                 # Save to CSV
-                if timestamp!="00:00:00" and timestamp<"01:00:00":
-                    csv_writer.writerow([filename, timestamp, file_path])
+                if timestamp!="00:00:00" and end_time<duration:
+                    csv_writer.writerow([filename, timestamp, file_path, start_time, end_time])
                 
             except Exception as e:
                 logging.error(f"Error processing {filename}: {str(e)}")
