@@ -66,6 +66,7 @@ def extract_screenshots(video_path, output_dir, interval_seconds=60):
     
     video.release()
     print(f"Extracted {screenshot_count} screenshots")
+    return duration
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extract screenshots from a video at specified intervals")
