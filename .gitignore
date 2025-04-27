@@ -7,13 +7,13 @@ __pycache__/
 *.so
 
 #CSV logs
-.CSV
+*.CSV
 
 #Video, Images and Audio
-.mp4
-.m4a
-.jpg
-.png
+*.mp4
+*.m4a
+*.jpg
+*.png
 
 # Distribution / packaging
 .Python
@@ -181,3 +181,9 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+AСМРдлятебя).mp4
+get_video.bat
+results.csv
+tangerin_vid_nochapters_edited.mp4
+tangerin_vid.mp4
+Timestamps.txt
