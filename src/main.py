@@ -1,5 +1,5 @@
 from modules.python_downloader import download_live
-from modules.extract_screenshots import extract_screenshots
+from src.modules.extract_screenshots_decord import video_to_frames
 from modules.extract_timestamp import process_images
 from modules.edit_together import cut_video_by_timestamps
 
@@ -31,9 +31,12 @@ def extract_time_columns(csv_file_path):
     return result
 
 def orchestrate_all(video_url):
-    file_name = download_live(video_url)
-    file_name = file_name[6:]
-    duration = extract_screenshots(f"video/{file_name}", f"./screenshots/{file_name}", interval_seconds=30)
+    # file_name = download_live(video_url)
+    file_name = "Tangerin_vid1"
+    if file_name ==0:
+        return 0
+    # duration = extract_screenshots(f"./video/{file_name}.mp4", f"./screenshots/{file_name}", interval_seconds=30)
+    duration = video_to_frames(f"./video/{file_name}.mp4", "screenshots/", )
     process_images(f"./screenshots/{file_name}", duration, f"./timestamps/{file_name}.csv")
     # Example usage
     if confirm("Do you want to continue? \nEnsure that you have checked the timestamps CSV to ensure incorrect timestamps are not included.\n (y/n): "):
@@ -52,7 +55,7 @@ def orchestrate_all(video_url):
 
 if __name__ == "__main__":
     #Example Video
-    bool = orchestrate_all("https://live.vkvideo.ru/tangerin/record/8498f588-c24a-4338-bd15-8b5c9ad7d9bb/video")
+    bool = orchestrate_all("https://live.vkvideo.ru/tangerin/record/9f048ceb-6bee-4908-a6bb-258d36671ff1/records")
     if bool == 0:
         print("The task has failed")
     if bool == 1:

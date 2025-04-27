@@ -11,6 +11,7 @@ __pycache__/
 
 #Video, Images and Audio
 *.mp4
+*.part
 *.m4a
 *.jpg
 *.png
