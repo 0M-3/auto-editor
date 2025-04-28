@@ -1,7 +1,7 @@
 import os
-from moviepy.editor import *
-# from moviepy.video.io.VideoFileClip import VideoFileClip # type: ignore
-# from moviepy.video.compositing.CompositeVideoClip import concatenate_videoclips  # type: ignore
+# from moviepy.editor import *
+from moviepy.video.io.VideoFileClip import VideoFileClip # type: ignore
+from moviepy.video.compositing.CompositeVideoClip import concatenate_videoclips  # type: ignore
 
 def cut_video_by_timestamps(video_path, timestamps, output_path=None):
     """
@@ -44,6 +44,7 @@ def cut_video_by_timestamps(video_path, timestamps, output_path=None):
                 end = video.duration
             
             segment = video.subclipped(start, end)
+            # segment = video.subclip(start, end)
             segments.append(segment)
         
         # Combine segments

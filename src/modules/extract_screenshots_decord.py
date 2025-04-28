@@ -43,8 +43,8 @@ def extract_frames(video_path, frames_dir, overwrite=False, start=-1, end=-1):
     if every > 25 and len(frames_list) < 1000:  # this is faster for every > 25 frames and can fit in memory
         frames = vr.get_batch(frames_list).asnumpy()
         for index, frame in zip(frames_list, frames):  # lets loop through the frames until the end
-            timestamp = f"{math.floor(index/(fps*3600))}:{math.floor(index/(fps*60))}:{math.floor(index/fps)}"
-            save_path = os.path.join(frames_dir, video_filename[:-4], f"screenshot_{index:04d}_{timestamp.replace(':', '-')}.jpg")  # create the save path
+            timestamp = f"{math.floor(index/(fps*3600)):02d}:{math.floor(index/(fps*60))%60:02d}:{math.floor(index/fps)%60:02d}"
+            save_path = os.path.join(frames_dir, video_filename[:-4], f"screenshot_{saved_count:04d}_{timestamp.replace(':', '-')}.jpg")  # create the save path
             if not os.path.exists(save_path) or overwrite:  # if it doesn't exist or we want to overwrite anyways
                 cv2.imwrite(save_path, cv2.cvtColor(frame, cv2.COLOR_RGB2BGR))  # save the extracted image
                 saved_count += 1  # increment our counter by one
@@ -54,7 +54,7 @@ def extract_frames(video_path, frames_dir, overwrite=False, start=-1, end=-1):
             frame = vr[index]  # read an image from the capture
             
             if index % every == 0:  # if this is a frame we want to write out based on the 'every' argument
-                timestamp = f"{math.floor(index/(fps*3600))}:{math.floor(index/(fps*60))}:{math.floor(index/fps)}"
+                timestamp = f"{math.floor(index/(fps*3600)):02d}:{math.floor(index/(fps*60))%60:02d}:{math.floor(index/fps)%60:02d}"
                 save_path = os.path.join(frames_dir, video_filename[-4], f"screenshot_{index:04d}_{timestamp.replace(':', '-')}.jpg")  # create the save path
                 if not os.path.exists(save_path) or overwrite:  # if it doesn't exist or we want to overwrite anyways
                     cv2.imwrite(save_path, cv2.cvtColor(frame.asnumpy(), cv2.COLOR_RGB2BGR))  # save the extracted image
