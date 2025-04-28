@@ -11,9 +11,9 @@ import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def screenshot_to_start(jpg_file):
-    hour = int(jpg_file[16])
-    minute = int(jpg_file[18:19])
-    seconds = int(jpg_file[21:22])
+    hour = int(jpg_file[16:18])
+    minute = int(jpg_file[19:21])
+    seconds = int(jpg_file[22:24])
     return 3600*hour+minute*60+seconds
 
 
@@ -106,6 +106,7 @@ def process_images(directory, duration, output_csv):
     logging.info(f"Processing complete. Results saved to {output_csv}")
 
 if __name__ == "__main__":
+    print(screenshot_to_start("screenshot_0020_03-09-59"))
     parser = argparse.ArgumentParser(description='Extract timestamps from images')
     parser.add_argument('directory', type=str, help='Directory containing JPG images')
     parser.add_argument('--output', type=str, default='timestamps.csv', 

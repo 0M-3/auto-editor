@@ -1,5 +1,5 @@
 from modules.python_downloader import download_live
-from src.modules.extract_screenshots_decord import video_to_frames
+from modules.extract_screenshots_decord import video_to_frames
 from modules.extract_timestamp import process_images
 from modules.edit_together import cut_video_by_timestamps
 
@@ -24,19 +24,19 @@ def extract_time_columns(csv_file_path):
         
         # Extract start_time and end_time from each row
         for row in csv_reader:
-            start_time = row['start_time']
-            end_time = row['end_time']
+            start_time = int(row['Start_time'])
+            end_time = int(row['End_time'])
             result.append([start_time, end_time])
     
     return result
 
 def orchestrate_all(video_url):
-    # file_name = download_live(video_url)
-    file_name = "Tangerin_vid1"
+    file_name = download_live(video_url)
     if file_name ==0:
         return 0
     # duration = extract_screenshots(f"./video/{file_name}.mp4", f"./screenshots/{file_name}", interval_seconds=30)
     duration = video_to_frames(f"./video/{file_name}.mp4", "screenshots/", )
+    duration = 13920
     process_images(f"./screenshots/{file_name}", duration, f"./timestamps/{file_name}.csv")
     # Example usage
     if confirm("Do you want to continue? \nEnsure that you have checked the timestamps CSV to ensure incorrect timestamps are not included.\n (y/n): "):
@@ -48,7 +48,7 @@ def orchestrate_all(video_url):
         # Perform actions if cancelled
 
     timestamps= extract_time_columns(f"./timestamps/{file_name}.csv")
-    cut_video_by_timestamps(f"video/{file_name}", timestamps, f"./outputs/{file_name}")
+    cut_video_by_timestamps(f"video/{file_name}.mp4", timestamps, f"./outputs/{file_name}.mp4")
     return 1
 
    
