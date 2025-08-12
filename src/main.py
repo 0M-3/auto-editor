@@ -2,7 +2,7 @@ from modules.python_downloader import download_live
 from modules.extract_screenshots_decord import video_to_frames
 from modules.extract_timestamp import process_images
 from modules.edit_together import cut_video_by_timestamps
-
+import argparse
 import csv 
 
 def confirm(prompt="Are you sure? (y/n): "):
@@ -54,8 +54,12 @@ def orchestrate_all(video_url):
    
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Process a URL.')
+    parser.add_argument('url', help='The input URL to process')
+    args = parser.parse_args()
+    bool = orchestrate_all(args.url)
     #Example Video
-    bool = orchestrate_all("https://live.vkvideo.ru/tangerin/record/9f048ceb-6bee-4908-a6bb-258d36671ff1/records")
+    # bool = orchestrate_all("https://live.vkvideo.ru/tangerin/record/9f048ceb-6bee-4908-a6bb-258d36671ff1/records")
     if bool == 0:
         print("The task has failed")
     if bool == 1:
