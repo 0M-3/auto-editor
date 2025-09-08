@@ -13,6 +13,12 @@ pip install -r requirements.txt
 
 2. Ensure that the CONDA_SCRIPTS variable in run_script.bat file mentions the directory of where the Anaconda Scripts folder is located correctly.
 
-3. Have fun downloading and editting streams with the code!
+3. If the .bat file does not work then simply open the anaconda terminal and use the following command in the repository.
+```
+conda activate auto-editor
+python src/main.py [VIDEO_LINK_HERE]
+```
+
+5. Have fun downloading and editting streams with the code!
 
 ##
