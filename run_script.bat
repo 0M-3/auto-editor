@@ -1,32 +1,22 @@
 @echo off
-setlocal enabledelayedexpansion
+rem // Prompt the user for input
+set /p UserInput="Please enter the link to the stream for the script: "
 
-:: Define the name of the file containing the URLs
-set "url_file=url.txt"
+rem // Define the path to your Conda installation's Scripts folder
+rem set "CONDA_SCRIPTS=C:\ProgramData\Miniconda3\Scripts"
+rem // Alternatively, for a user install or Anaconda:
+rem set "CONDA_SCRIPTS=C:\Users\Username\anaconda3\Scripts"
 
-:: Check if the url file exists
-if not exist "%url_file%" (
-    echo Error: "%url_file%" not found.
-    goto :eof
-)
+rem // Define the name of your environment
+set "CONDA_ENV=auto-editor"
 
-:: Loop through each line in the url file
-for /f "delims=" %%a in ('type "%url_file%"') do (
-    :: Trim leading/trailing whitespace from the URL
-    set "current_url=%%a"
-    for /f "tokens=*" %%b in ("!current_url!") do set "trimmed_url=%%b"
+rem // Activate the environment by directly calling the script
+call "%CONDA_SCRIPTS%\activate.bat" %CONDA_ENV%
 
-    :: Skip empty lines
-    if not "!trimmed_url!"=="" (
-        echo Running python main.py with URL: !trimmed_url!
-        :: Execute the python script with the current URL as an argument
-        python src/main.py "!trimmed_url!"
-        :: You can add error handling here if needed, e.g.,
-        :: if %errorlevel% neq 0 (
-        ::     echo Error running script for URL: !trimmed_url!
-        :: )
-    )
-)
+rem // Run your Python script with the user input
+python "src\main.py" "%UserInput%"
 
-echo Script finished.
+rem // Deactivate
+call "%CONDA_SCRIPTS%\deactivate.bat"
+
 pause
