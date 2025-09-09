@@ -1,5 +1,5 @@
 # auto-editor
-This is an python module which is responsible for editing together a video file based upon the relevant timestamps extracted using OCR from the video itselt
+This is an python module which is responsible for editing together a video file based upon the relevant timestamps extracted using OCR from the video itself
 
 ## How to Setup
 To run the script you're going to need to configure a few variables. In order to run the script we need to simply follow the steps listed below:
