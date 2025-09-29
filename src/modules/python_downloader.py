@@ -1,31 +1,19 @@
 import yt_dlp
 import sys
 import os
+from extract_date import get_vk_video_date
 
-def get_next_filename(folder_path, base_name="file"):
+def get_next_filename(folder_path, url, base_name="file"):
     # Ensure the folder exists
     if not os.path.exists(folder_path):
         raise FileNotFoundError(f"The folder '{folder_path}' does not exist.")
     
-    # Get the list of files in the folder
-    files = os.listdir(folder_path)
-    
-    # Extract the numeric part from filenames that match the base name pattern
-    max_number = -1
-    for file in files:
-        if file.startswith(base_name):
-            # Split the filename to extract the number
-            name, ext = os.path.splitext(file)
-            if name[len(base_name):].isdigit():  # Check if the remaining part is a number
-                number = int(name[len(base_name):])
-                if number > max_number:
-                    max_number = number
-    
-    # Determine the next available number
-    next_number = max_number + 1 if max_number != -1 else 1
+    # Get the date in str format
+    date = get_vk_video_date(url)
     
     # Generate the next filename
-    next_filename = f"{base_name}{next_number}"
+    next_filename = f"{base_name}_{date}"
+
     
     return next_filename
 
@@ -48,7 +36,7 @@ def download_live(video_url):
     # Optional: uncomment and set if ffmpeg is not in your PATH
     # 'ffmpeg_location': '/path/to/your/ffmpeg/bin',
 
-    filename = get_next_filename("video/", "Tangerin_vid")
+    filename = get_next_filename("video/", "Tangerin_vid", video_url)
 
     ydl_opts = {
         'format': 'bestvideo[height<=?720]+bestaudio/best[height<=?720]',
@@ -87,7 +75,7 @@ def download_live(video_url):
                 return 0
     
     except KeyboardInterrupt:
-        print(f"\nThe User has interrupted the process.")
+        print("\nThe User has interrupted the process.")
 
     except yt_dlp.utils.DownloadError as e:
         print(f"\nAn error occurred during download: {e}")
@@ -99,4 +87,4 @@ def download_live(video_url):
 if __name__ == '__main__':
     # --- Configuration ---
     video_url = "YOUR_VKVIDEO_URL_HERE"# <--- Replace with the actual VK video URL
-    print(get_next_filename("video/", "Tangerin_vid"))
+    print(get_next_filename("video/", "Tangerin_vid", video_url))

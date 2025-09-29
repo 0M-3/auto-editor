@@ -19,6 +19,12 @@ conda activate auto-editor
 python src/main.py [VIDEO_LINK_HERE]
 ```
 
+<<<<<<< HEAD
+## How to Run
+
+1. Run the run_script.bat batch file.
+=======
 5. Have fun downloading and editting streams with the code!
 
 ##
+>>>>>>> 828d6b1d23709b1f229bf9f0968b2d4517385935
