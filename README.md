@@ -15,4 +15,6 @@ pip install -r requirements.txt
 
 3. Have fun downloading and editting streams with the code!
 
-##
+## How to Run
+
+1. Run the run_script.bat batch file.
