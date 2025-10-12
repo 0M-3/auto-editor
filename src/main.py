@@ -35,7 +35,7 @@ def orchestrate_all(video_url):
     if file_name ==0:
         return 0
     # duration = extract_screenshots(f"./video/{file_name}.mp4", f"./screenshots/{file_name}", interval_seconds=30)
-    duration = video_to_frames(f"./video/{file_name}.mp4", "screenshots/", )
+    duration = video_to_frames(f"./video/{file_name}.mp4", f"./screenshots/{file_name}", )
     duration = 13920
     process_images(f"./screenshots/{file_name}", duration, f"./timestamps/{file_name}.csv")
     # Example usage

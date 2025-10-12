@@ -50,7 +50,7 @@ def cut_video_by_timestamps(video_path, timestamps, output_path=None):
         # Combine segments
         if segments:
             final_clip = concatenate_videoclips(segments)
-            final_clip.write_videofile(output_path, codec="libx264", threads=7)
+            final_clip.write_videofile(output_path, codec="h264_nvenc")
             final_clip.close()
         else:
             raise ValueError("No valid segments were extracted from the video")
