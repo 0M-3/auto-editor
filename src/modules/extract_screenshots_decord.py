@@ -44,7 +44,7 @@ def extract_frames(video_path, frames_dir, overwrite=False, start=-1, end=-1):
         frames = vr.get_batch(frames_list).asnumpy()
         for index, frame in zip(frames_list, frames):  # lets loop through the frames until the end
             timestamp = f"{math.floor(index/(fps*3600)):02d}:{math.floor(index/(fps*60))%60:02d}:{math.floor(index/fps)%60:02d}"
-            save_path = os.path.join(frames_dir, video_filename[:-4], f"screenshot_{saved_count:04d}_{timestamp.replace(':', '-')}.jpg")  # create the save path
+            save_path = os.path.join(frames_dir, video_filename[:-4], f"screenshot_{saved_count:08d}_{timestamp.replace(':', '-')}.jpg")  # create the save path
             if not os.path.exists(save_path) or overwrite:  # if it doesn't exist or we want to overwrite anyways
                 cv2.imwrite(save_path, cv2.cvtColor(frame, cv2.COLOR_RGB2BGR))  # save the extracted image
                 saved_count += 1  # increment our counter by one
@@ -55,7 +55,7 @@ def extract_frames(video_path, frames_dir, overwrite=False, start=-1, end=-1):
             
             if index % every == 0:  # if this is a frame we want to write out based on the 'every' argument
                 timestamp = f"{math.floor(index/(fps*3600)):02d}:{math.floor(index/(fps*60))%60:02d}:{math.floor(index/fps)%60:02d}"
-                save_path = os.path.join(frames_dir, video_filename[-4], f"screenshot_{index:04d}_{timestamp.replace(':', '-')}.jpg")  # create the save path
+                save_path = os.path.join(frames_dir, video_filename[-4], f"screenshot_{index:08d}_{timestamp.replace(':', '-')}.jpg")  # create the save path
                 if not os.path.exists(save_path) or overwrite:  # if it doesn't exist or we want to overwrite anyways
                     cv2.imwrite(save_path, cv2.cvtColor(frame.asnumpy(), cv2.COLOR_RGB2BGR))  # save the extracted image
                     saved_count += 1  # increment our counter by one
@@ -92,4 +92,4 @@ def video_to_frames(video_path, frames_dir, overwrite=False, every=1):
 
 if __name__ == '__main__':
     # test it
-    print(video_to_frames(video_path='video/Tangerin_vid1.mp4', frames_dir='screenshots', overwrite=True, every=1800))
+    print(video_to_frames(video_path='./video/Tangerin_vid_21_09_25.mp4', frames_dir='./screenshots/Tangerin_vid_21_09_25', overwrite=False))

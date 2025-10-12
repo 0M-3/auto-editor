@@ -16,9 +16,8 @@ def extract_time_columns(csv_file_path):
     
     return result
 
-def cut_vid():
+def cut_vid(file_name):
     try:
-        file_name = 'Tangerin_vid2'
         timestamps= extract_time_columns(f"./timestamps/{file_name}.csv")
         cut_video_by_timestamps(f"video/{file_name}.mp4", timestamps, f"./outputs/{file_name}.mp4")
         return 1
@@ -26,7 +25,7 @@ def cut_vid():
         return 0
 
 if __name__ == '__main__':
-    success = cut_vid()
+    success = cut_vid('Tangerin_vid_18_09_25')
     if success==1:
         print("The task has suceeded")
     if success==0:

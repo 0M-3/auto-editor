@@ -2,7 +2,6 @@ import os
 import csv
 import pytesseract
 from PIL import Image
-import argparse
 import re
 from datetime import datetime
 import logging
@@ -11,9 +10,9 @@ import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def screenshot_to_start(jpg_file):
-    hour = int(jpg_file[16:18])
-    minute = int(jpg_file[19:21])
-    seconds = int(jpg_file[22:24])
+    hour = int(jpg_file[-12:-10])
+    minute = int(jpg_file[-9:-7])
+    seconds = int(jpg_file[-6:-4])
     return 3600*hour+minute*60+seconds
 
 
@@ -106,16 +105,22 @@ def process_images(directory, duration, output_csv):
     logging.info(f"Processing complete. Results saved to {output_csv}")
 
 if __name__ == "__main__":
-    print(screenshot_to_start("screenshot_0020_03-09-59"))
-    parser = argparse.ArgumentParser(description='Extract timestamps from images')
-    parser.add_argument('directory', type=str, help='Directory containing JPG images')
-    parser.add_argument('--output', type=str, default='timestamps.csv', 
-                        help='Output CSV file name (default: timestamps.csv)')
-    parser.add_argument('--width', type=int, default=25,
-                        help='Width percentage to crop from right (default: 25%)')
-    parser.add_argument('--height', type=int, default=10,
-                        help='Height percentage to crop from bottom (default: 10%)')
+    # print(screenshot_to_start("screenshot_0020_03-09-59"))
+    # parser = argparse.ArgumentParser(description='Extract timestamps from images')
+    # parser.add_argument('directory', type=str, help='Directory containing JPG images')
+    # parser.add_argument('--output', type=str, default='timestamps.csv', 
+    #                     help='Output CSV file name (default: timestamps.csv)')
+    # parser.add_argument('--width', type=int, default=25,
+    #                     help='Width percentage to crop from right (default: 25%)')
+    # parser.add_argument('--height', type=int, default=10,
+    #                     help='Height percentage to crop from bottom (default: 10%)')
     
-    args = parser.parse_args()
+    # args = parser.parse_args()
+    directory = "./screenshots/Tangerin_vid_21_09_25"
+    sc_dir = "/Tangerin_vid_21_09_25"
+
     
-    process_images(args.directory, args.output)
+    process_images(directory,  0 , f"./timestamps{sc_dir}")
+ #   print(screenshot_to_start("screenshot_1016435_04-42-20.jpg"))
+#    print(screenshot_to_start("screenshot_100744_00-27-59.jpg"))
+    
