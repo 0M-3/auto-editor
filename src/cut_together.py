@@ -1,5 +1,6 @@
 import csv 
 from modules.edit_together import cut_video_by_timestamps
+import argparse
 
 def extract_time_columns(csv_file_path):
     result = []
@@ -25,7 +26,10 @@ def cut_vid(file_name):
         return 0
 
 if __name__ == '__main__':
-    success = cut_vid('Tangerin_vid_18_09_25')
+    parser = argparse.ArgumentParser(description='Process a video.')
+    parser.add_argument('video', help='The input video to process')
+    args = parser.parse_args()
+    success = cut_vid(args.video)
     if success==1:
         print("The task has suceeded")
     if success==0:
