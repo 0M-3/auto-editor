@@ -96,7 +96,7 @@ def process_images(directory, duration, output_csv):
                 start_time = screenshot_to_start(filename)
                 end_time = start_time + 3600*hours+60*mins+secs
                 # Save to CSV
-                if timestamp!="00:00:00" and end_time<duration:
+                if (timestamp!="00:00:00" and timestamp!="0:00:00") and end_time<duration:
                     csv_writer.writerow([filename, timestamp, file_path, start_time, end_time])
                 
             except Exception as e:
@@ -117,7 +117,7 @@ if __name__ == "__main__":
     
     # args = parser.parse_args()
     directory = "./screenshots/Tangerin_vid_21_09_25"
-    sc_dir = "/Tangerin_vid_21_09_25"
+    sc_dir = "/Tangerin_vid_21_09_25.csv"
 
     
     process_images(directory,  0 , f"./timestamps{sc_dir}")

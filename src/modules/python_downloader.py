@@ -8,11 +8,8 @@ def get_next_filename(folder_path, url, base_name="file"):
     if not os.path.exists(folder_path):
         raise FileNotFoundError(f"The folder '{folder_path}' does not exist.")
     
-    # Get the date in str format
-    date = get_vk_video_date(url)
-    
-    # Generate the next filename
-    next_filename = f"{base_name}_{date}"
+    # Get the username in str format
+    next_filename = get_vk_video_date(url)
     
     return next_filename
 
@@ -48,7 +45,7 @@ def get_vk_video_date(url):
                 
                 # Format the datetime object to 'dd_mm_yy'
                 formatted_date = date_object.strftime('%d_%m_%y')
-                return formatted_date
+                return f"{info_dict.get('uploader')}_vid_{formatted_date}"
             else:
                 return "Date not found in metadata."
                 
