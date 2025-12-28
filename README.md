@@ -22,7 +22,13 @@ python src/main.py [VIDEO_LINK_HERE]
 ## How to Run
 
 1. Run the run_script.bat batch file.
-=======
+2. Enter the url of the stream you are trying to download.
+3. Wait for the video to be downloaded and processed.
+4. Look through the csv filen for that video in the timestamps folder and verify the time intervals you want to extract from the video.
 5. Have fun downloading and editting streams with the code!
+
+OR
+
+6. If you just wish to cut the video according to your own wishes you may create your own csv file with the name of the video in the timestamps folder and run the run_cutter.bat batch file to edit the video according to your specification.
 
 ##
